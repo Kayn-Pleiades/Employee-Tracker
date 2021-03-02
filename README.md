@@ -39,3 +39,6 @@ I added the required packages to the script and set up the database connection. 
 
 ### Commit 5: Connection
 I can now connect to my database. This confirms that my password file is working too!
+
+### Commit 6: Department
+Department table is now set up! I checked it in my workbench to make sure everything looked right too! 
