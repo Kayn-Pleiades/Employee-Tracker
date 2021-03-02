@@ -33,3 +33,6 @@ Added some basic files
 
 ### Commit 3: Install Packages
 Installed needed packages
+
+### Commit 4: Set-up
+I added the required packages to the script and set up the database connection. I also created the file for the database. To protect my password, I have it being pulled from a json in my homework folder. Hopefully this works to protect it!
