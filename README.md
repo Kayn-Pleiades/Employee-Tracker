@@ -36,3 +36,6 @@ Installed needed packages
 
 ### Commit 4: Set-up
 I added the required packages to the script and set up the database connection. I also created the file for the database. To protect my password, I have it being pulled from a json in my homework folder. Hopefully this works to protect it!
+
+### Commit 5: Connection
+I can now connect to my database. This confirms that my password file is working too!
