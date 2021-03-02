@@ -30,3 +30,6 @@ Created repository on GitHub
 
 ### Commit 2: Base Files
 Added some basic files
+
+### Commit 3: Install Packages
+Installed needed packages
