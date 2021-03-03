@@ -45,3 +45,6 @@ Department table is now set up! I checked it in my workbench to make sure everyt
 
 ### Commit 7: Role
 Role table is now set up! I checked it in my workbench to make sure everything looked right too! 
+
+### Commit 8: Employee
+Employee table is now also set up. I think next I'll make a seed file to help with the process moving forward. 

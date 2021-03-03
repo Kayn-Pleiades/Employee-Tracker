@@ -29,3 +29,19 @@ CREATE TABLE role (
     -- Sets id as primary key --
     PRIMARY KEY (id)
 );
+
+-- Creates table for employee --
+CREATE TABLE employee (
+    -- Makes a numeric column called "id" which cannot contain null --
+    id INTEGER NOT NULL AUTO_INCREMENT,
+    -- Makes a string column called "first_name" which cannot contain null --
+    first_name VARCHAR(30) NOT NULL,
+    -- Makes a string column called "last_name" which cannot contain null --
+    last_name VARCHAR(30) NOT NULL,
+    -- Makes a numeric column called "role_id" which cannot contain null to hold reference to the role the employee belongs to --
+    role_id INTEGER NOT NULL, 
+    -- Makes a numeric column called "manager_id" which, if applicable, holds reference to the employee that manages the one being created --
+    manager_id INTEGER,
+    -- Sets id as primary key --
+    PRIMARY KEY (id)
+);
