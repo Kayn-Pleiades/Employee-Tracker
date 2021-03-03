@@ -420,7 +420,7 @@ const employeeInfo = () => {
 
 // View employees
 const viewEmployee = () => {
-  connection.query('SELECT * FROM employee', (err, res) => {
+  connection.query('SELECT employee.id, employee.first_name, employee.last_name, role.title, role.salary FROM (employee INNER JOIN role ON employee.role_id = role.id)', (err, res) => {
     if (err) throw err;
     console.table(res);
     employeeMenu();

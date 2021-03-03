@@ -17,6 +17,7 @@
 ## Usage
 
 ## Credits
+https://www.w3schools.com/sql/sql_join_inner.asp
 
 ## Tests
 
@@ -99,3 +100,6 @@ First name can now be updated.
 
 ### Commit 26: Employee Updates
 Now all aspects of employees can be updated.
+
+### Commit 27: Single Join
+I have joined the tables to that the role info shows on the table for employees, but I am still trying to figure out how to also join the info from the department table.
