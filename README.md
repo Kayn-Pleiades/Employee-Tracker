@@ -66,3 +66,6 @@ Added some roles to the seed and then added the code to view them from the menu.
 
 ### Commit 14: View Employees
 Added some employees to the seed and then added the code to view them from the menu. 
+
+### Commit 15: Add Departments
+Because the ids autoincrement, I have removed them from the seed file. Now you can add departments! I will repeat and test the process with the other two tables!

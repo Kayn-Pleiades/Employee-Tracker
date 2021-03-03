@@ -88,6 +88,30 @@ function roleMenu() {
     })
 }
 
+// Add department
+const addDepartment = () => {
+  inquirer
+    .prompt([
+      {
+        type: 'input',
+        message: 'What is the name of the department?',
+        name: 'name'
+      }
+    ])
+    .then((response) => {
+      connection.query(
+        'INSERT INTO department SET ?',
+        {
+          name: response.name,
+        },
+        (err) => {
+          if (err) throw err;
+          viewDepartment();
+        }
+      );
+    });
+};
+
 // View departments
 const viewDepartment = () => {
   connection.query('SELECT * FROM department', (err, res) => {
@@ -113,7 +137,7 @@ function departmentMenu() {
         viewDepartment();
       }
       else if (response.menu == 'Add a department') {
-        console.log('add a department');
+        addDepartment();
       }
       else if (response.menu == 'Return to main menu') {
         mainMenu();
