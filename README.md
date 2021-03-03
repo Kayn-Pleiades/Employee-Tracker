@@ -81,3 +81,6 @@ Now that I have a way to get the ID number of the department, I was easily able 
 
 ### Commit 19: Is there a manager?
 The prompts ask if there is a manager and then splits into two. If there is no manager, it will put the value as "" for null and then take that to an function to add the employee. If there is a manager, it will have the user select the manager from a list and then go to the add employee function. 
+
+### Commit 20: No manager
+I learned that I need to use null and not "" or "null" to set a value to null. Now employees without managers can be added.

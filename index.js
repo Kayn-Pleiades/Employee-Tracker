@@ -13,6 +13,23 @@ const connection = mysql.createConnection({
     database: 'employees_db'
 });
 
+// Add Employee
+const addEmployee = (first, last, role, manager) => {
+  connection.query(
+    'INSERT INTO employee SET ?',
+    {
+      first_name: first,
+      last_name: last,
+      role_id: role,
+      manager_id: manager,
+    },
+    (err) => {
+      if (err) throw err;
+      viewEmployee();
+    }
+  )
+}
+
 // Asks information needed to add an employee
 const employeeInfo = () => {
   connection.query('SELECT * FROM role', (err, res) => {
@@ -58,12 +75,15 @@ const employeeInfo = () => {
           ],
           (err, res) => {
             if (err) throw err;
+            const first = response.first;
+            const last = response.last;
             const role = res[0].id;
             if (response.manager == 'Yes') {
               console.log(role);
             }
             else if (response.manager == 'No') {
-              console.log(role);
+              const manager = null;
+              addEmployee(first, last, role, manager);
             }
           })
       });
