@@ -114,3 +114,6 @@ The manager name now displays. I'm going to look more into aliases so that I can
 
 ### Commit 30: Nicer tables
 The employee table looks nicer now. I will fix up the other two tables next.
+
+### Commit 31: Tables Finished
+All tables are formatted now

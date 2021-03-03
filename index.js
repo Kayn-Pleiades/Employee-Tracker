@@ -512,7 +512,7 @@ const addRole = () => {
 
 // View roles
 const viewRole = () => {
-  connection.query('SELECT * FROM role', (err, res) => {
+  connection.query('SELECT role.id AS ID, department.name AS Department, role.title AS Role, role.salary AS Salary FROM (role LEFT JOIN department ON role.department_id = department.id)', (err, res) => {
     if (err) throw err;
     console.table(res);
     roleMenu();
@@ -569,7 +569,7 @@ const addDepartment = () => {
 
 // View departments
 const viewDepartment = () => {
-  connection.query('SELECT * FROM department', (err, res) => {
+  connection.query('SELECT department.id AS ID, department.name AS Department FROM department', (err, res) => {
     if (err) throw err;
     console.table(res);
     departmentMenu();
