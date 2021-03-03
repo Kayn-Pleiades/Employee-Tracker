@@ -51,3 +51,6 @@ Employee table is now also set up. I think next I'll make a seed file to help wi
 
 ### Commit 9: Seed
 I started a seed file to help me moving forward.
+
+### Commit 10: Main Menu
+Added a Main Menu
