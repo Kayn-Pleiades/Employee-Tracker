@@ -191,10 +191,10 @@ const updateMenu = (id) => {
                 message: 'Who is the new manager of the employee?',
                 name: 'newManager',
                 choices() {
-                  const choiceArray = ['None'];
+                  const choiceArray = [];
                   res.forEach(({ first_name, last_name }) => {
                     const name = first_name + ' ' + last_name;
-                    choiceArray.append(name);
+                    choiceArray.push(name);
                   });
                   return choiceArray;
                 },
@@ -543,6 +543,50 @@ function roleMenu() {
     })
 }
 
+// Remove department
+const removeDepartment = () => {
+  connection.query('SELECT * FROM department', (err, res) => {
+    if (err) throw err;
+    inquirer
+      .prompt([
+        {
+          type: 'rawlist',
+          message: 'What department is this role in?',
+          name: 'department',
+          choices() {
+            const choiceArray = [];
+            res.forEach(({ name }) => {
+              choiceArray.push(name);
+            });
+            return choiceArray;
+          },
+        }
+      ])
+      .then((response) => {
+        connection.query(
+          'SELECT * FROM department WHERE ?',
+          [
+            {
+              name: response.department,
+            },
+          ],
+          (err, res) => {
+            if (err) throw err;
+            connection.query(
+              'DELETE FROM department WHERE ?',
+              {
+                id: res[0].id,
+              },
+              (err) => {
+                if (err) throw err;
+                viewDepartment();
+              }
+            )
+          })
+      });
+  });
+}
+
 // Add department
 const addDepartment = () => {
   inquirer
@@ -584,12 +628,15 @@ function departmentMenu() {
         type: 'list',
         message: 'What would you like to do?',
         name: 'menu',
-        choices: ['Add a department', 'Return to main menu', 'Exit program'],
+        choices: ['Add a department', 'Remove a department', 'Return to main menu', 'Exit program'],
       },
     ])
     .then((response) => {
       if (response.menu == 'Add a department') {
         addDepartment();
+      }
+      else if (response.menu == 'Remove a department') {
+        removeDepartment();
       }
       else if (response.menu == 'Return to main menu') {
         mainMenu();

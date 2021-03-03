@@ -117,3 +117,6 @@ The employee table looks nicer now. I will fix up the other two tables next.
 
 ### Commit 31: Tables Finished
 All tables are formatted now
+
+### Commit 32: Delete Department
+Departments are now able to be deleted.
