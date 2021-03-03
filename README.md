@@ -103,3 +103,6 @@ Now all aspects of employees can be updated.
 
 ### Commit 27: Single Join
 I have joined the tables to that the role info shows on the table for employees, but I am still trying to figure out how to also join the info from the department table.
+
+### Commit 28: Double Join
+Figured it out! now to get the manager name to display!
