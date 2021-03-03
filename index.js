@@ -91,7 +91,18 @@ const addRole = () => {
           ],
           (err, res) => {
             if (err) throw err;
-            console.log(res[0].id);
+            connection.query(
+              'INSERT INTO role SET ?',
+              {
+                title: response.title,
+                salary: response.salary,
+                department_id: res[0].id,
+              },
+              (err) => {
+                if (err) throw err;
+                viewRole();
+              }
+            )
           })
       });
   });
@@ -149,9 +160,8 @@ const addDepartment = () => {
         {
           name: response.name,
         },
-        (err, res) => {
+        (err) => {
           if (err) throw err;
-          console.table(res);
           viewDepartment();
         }
       );

@@ -75,3 +75,6 @@ Working on the add role function, I was able to use class activites to guide on 
 
 ### Commit 17: Find department id number
 Using the top songs activity, I was able to figure out how to search the departments by name and then return the correct id number!
+
+### Commit 18: Add Role
+Now that I have a way to get the ID number of the department, I was easily able to set up the role addition. Now for adding employees!
