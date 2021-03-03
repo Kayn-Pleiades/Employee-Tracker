@@ -2,7 +2,7 @@
 const password = require('../password.json');
 const mysql = require('mysql');
 const inquirer = require('inquirer');
-const cTable = require('console.table');
+require('console.table');
 
 // Create connection to database
 const connection = mysql.createConnection({
@@ -13,7 +13,44 @@ const connection = mysql.createConnection({
     database: 'employees_db'
 });
 
-// Update an employee's role
+// Update an employee
+// Selects employee to update
+const selectEmployee = () => {
+  connection.query('SELECT * FROM employee', (err, res) => {
+    if (err) throw err;
+    inquirer
+    .prompt([
+      {
+        type: 'rawlist',
+        message: 'Please enter the ID of the employee you wish to edit',
+        name: 'select',
+        choices() {
+          const choiceArray = [];
+          res.forEach(({ first_name, last_name }) => {
+            const name = first_name + ' ' + last_name;
+            choiceArray.push(name);
+          });
+          return choiceArray;
+        },
+      },
+    ])
+    .then((response) => {
+      connection.query(
+        'SELECT * FROM employee WHERE ?',
+        [
+          {
+            id: response.select,
+          },
+        ],
+        (err, res) => {
+          if (err) throw err;
+          const id = res[0].id;
+          console.log(id);
+        }
+      )
+    })
+  })
+}
 
 // Add employee
 const addEmployee = (first, last, role, manager) => {
@@ -91,8 +128,9 @@ const employeeInfo = () => {
                       name: 'managerName',
                       choices() {
                         const choiceArray = [];
-                        res.forEach(({ first_name }) => {
-                          choiceArray.push(first_name);
+                        res.forEach(({ first_name, last_name }) => {
+                          const name = first_name + ' ' + last_name;
+                          choiceArray.push(name);
                         });
                         return choiceArray;
                       },
@@ -141,15 +179,15 @@ function employeeMenu() {
         type: 'list',
         message: 'What would you like to do?',
         name: 'menu',
-        choices: ['Add an employee', 'Update the role of an employee', 'Return to main menu', 'Exit program'],
+        choices: ['Add an employee', 'Update an employee', 'Return to main menu', 'Exit program'],
       },
     ])
     .then((response) => {
       if (response.menu == 'Add an employee') {
         employeeInfo();
       }
-      else if (response.menu == 'Update the role of an employee') {
-        console.log('update')
+      else if (response.menu == 'Update an employee') {
+        selectEmployee();
       }
       else if (response.menu == 'Return to main menu') {
         mainMenu();
