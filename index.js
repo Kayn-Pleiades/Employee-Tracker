@@ -13,6 +13,63 @@ const connection = mysql.createConnection({
     database: 'employees_db'
 });
 
+// Employee menu
+function employeeMenu() {
+  inquirer
+    .prompt([
+      {
+        type: 'list',
+        message: 'What would you like to do?',
+        name: 'menu',
+        choices: ['View employees', 'Add an employee', 'Update the role of an employee', 'Return to main menu', 'Exit program']
+      },
+    ])
+    .then((response) => {
+      if (response.menu == 'View employees') {
+        console.log('view employees');
+      }
+      else if (response.menu == 'Add an employee') {
+        console.log('add an employee');
+      }
+      else if (response.menu == 'Update the role of an employee') {
+        console.log('update')
+      }
+      else if (response.menu == 'Return to main menu') {
+        mainMenu();
+      }
+      else if (response.menu == 'Exit program') {
+        console.log('exit');
+      }
+    })
+}
+
+// Role menu
+function roleMenu() {
+  inquirer
+    .prompt([
+      {
+        type: 'list',
+        message: 'What would you like to do?',
+        name: 'menu',
+        choices: ['View roles', 'Add a role', 'Return to main menu', 'Exit program']
+      },
+    ])
+    .then((response) => {
+      if (response.menu == 'View roles') {
+        console.log('view roles');
+      }
+      else if (response.menu == 'Add a role') {
+        console.log('add a role');
+      }
+      else if (response.menu == 'Return to main menu') {
+        mainMenu();
+      }
+      else if (response.menu == 'Exit program') {
+        console.log('exit');
+      }
+    })
+}
+
 // Department menu
 function departmentMenu() {
   inquirer

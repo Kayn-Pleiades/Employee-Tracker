@@ -57,3 +57,6 @@ Added a Main Menu
 
 ### Commit 11: View Departments
 Added the department menu and the ability to view current departments.
+
+### Commit 12: Menus
+Put in the other two menus.
