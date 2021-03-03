@@ -120,3 +120,6 @@ All tables are formatted now
 
 ### Commit 32: Delete Department
 Departments are now able to be deleted.
+
+### Commit 33: Nevermind
+If I had more time I'd do delete functions, but it's better to deliever something that I can insure works and then improve it in the future.
