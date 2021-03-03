@@ -87,3 +87,6 @@ I learned that I need to use null and not "" or "null" to set a value to null. N
 
 ### Commit 21: Employee with manager
 Now employees that have managers can be added as well. There is a lot of added functionality I'd like to this if I have time. Like selecting a department and then only roles from that department show.
+
+### Commit 22: Auto view
+Viewing a catagory is no longer an option and the table is automatically shown while that catagory is being viewed and is shown again every time a change is made. I feel this makes much more sense from a design standpoint. 

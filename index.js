@@ -13,7 +13,9 @@ const connection = mysql.createConnection({
     database: 'employees_db'
 });
 
-// Add Employee
+// Update an employee's role
+
+// Add employee
 const addEmployee = (first, last, role, manager) => {
   connection.query(
     'INSERT INTO employee SET ?',
@@ -139,14 +141,11 @@ function employeeMenu() {
         type: 'list',
         message: 'What would you like to do?',
         name: 'menu',
-        choices: ['View employees', 'Add an employee', 'Update the role of an employee', 'Return to main menu', 'Exit program'],
+        choices: ['Add an employee', 'Update the role of an employee', 'Return to main menu', 'Exit program'],
       },
     ])
     .then((response) => {
-      if (response.menu == 'View employees') {
-        viewEmployee();
-      }
-      else if (response.menu == 'Add an employee') {
+      if (response.menu == 'Add an employee') {
         employeeInfo();
       }
       else if (response.menu == 'Update the role of an employee') {
@@ -234,14 +233,11 @@ function roleMenu() {
         type: 'list',
         message: 'What would you like to do?',
         name: 'menu',
-        choices: ['View roles', 'Add a role', 'Return to main menu', 'Exit program'],
+        choices: ['Add a role', 'Return to main menu', 'Exit program'],
       },
     ])
     .then((response) => {
-      if (response.menu == 'View roles') {
-        viewRole();
-      }
-      else if (response.menu == 'Add a role') {
+      if (response.menu == 'Add a role') {
         addRole();
       }
       else if (response.menu == 'Return to main menu') {
@@ -294,14 +290,11 @@ function departmentMenu() {
         type: 'list',
         message: 'What would you like to do?',
         name: 'menu',
-        choices: ['View departments', 'Add a department', 'Return to main menu', 'Exit program'],
+        choices: ['Add a department', 'Return to main menu', 'Exit program'],
       },
     ])
     .then((response) => {
-      if (response.menu == 'View departments') {
-        viewDepartment();
-      }
-      else if (response.menu == 'Add a department') {
+      if (response.menu == 'Add a department') {
         addDepartment();
       }
       else if (response.menu == 'Return to main menu') {
@@ -326,13 +319,13 @@ function mainMenu() {
     ])
     .then((response) => {
       if (response.menu == 'Departments') {
-        departmentMenu();
+        viewDepartment();
       }
       else if (response.menu == 'Roles') {
-        roleMenu();
+        viewRole();
       }
       else if (response.menu == 'Employees') {
-        employeeMenu();
+        viewEmployee();
       }
       else if (response.menu == 'Exit program') {
         connection.end();
