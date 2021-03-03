@@ -78,3 +78,6 @@ Using the top songs activity, I was able to figure out how to search the departm
 
 ### Commit 18: Add Role
 Now that I have a way to get the ID number of the department, I was easily able to set up the role addition. Now for adding employees!
+
+### Commit 19: Is there a manager?
+The prompts ask if there is a manager and then splits into two. If there is no manager, it will put the value as "" for null and then take that to an function to add the employee. If there is a manager, it will have the user select the manager from a list and then go to the add employee function. 

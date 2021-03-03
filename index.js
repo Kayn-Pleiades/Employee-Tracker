@@ -13,12 +13,69 @@ const connection = mysql.createConnection({
     database: 'employees_db'
 });
 
+// Asks information needed to add an employee
+const employeeInfo = () => {
+  connection.query('SELECT * FROM role', (err, res) => {
+    if (err) throw err;
+    inquirer
+      .prompt([
+        {
+          type: 'input',
+          message: 'What is the first name of the employee?',
+          name: 'first',
+        },
+        {
+          type: 'input',
+          message: 'What is the last name of the employee?',
+          name: 'last',
+        },
+        {
+          type: 'rawlist',
+          message: 'What role does this employee have?',
+          name: 'role',
+          choices() {
+            const choiceArray = [];
+            res.forEach(({ title }) => {
+              choiceArray.push(title);
+            });
+            return choiceArray;
+          },
+        },
+        {
+          type: 'list',
+          message: 'Does this employee have a manager?',
+          name: 'manager',
+          choices: ['Yes', 'No'],
+        }
+      ])
+      .then((response) => {
+        connection.query(
+          'SELECT * FROM role WHERE ?',
+          [
+            {
+              title: response.role,
+            },
+          ],
+          (err, res) => {
+            if (err) throw err;
+            const role = res[0].id;
+            if (response.manager == 'Yes') {
+              console.log(role);
+            }
+            else if (response.manager == 'No') {
+              console.log(role);
+            }
+          })
+      });
+  });
+};
+
 // View employees
 const viewEmployee = () => {
   connection.query('SELECT * FROM employee', (err, res) => {
     if (err) throw err;
     console.table(res);
-    roleMenu();
+    employeeMenu();
   });
 };
 
@@ -38,7 +95,7 @@ function employeeMenu() {
         viewEmployee();
       }
       else if (response.menu == 'Add an employee') {
-        console.log('add an employee');
+        employeeInfo();
       }
       else if (response.menu == 'Update the role of an employee') {
         console.log('update')
