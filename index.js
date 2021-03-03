@@ -30,7 +30,7 @@ function employeeMenu() {
         type: 'list',
         message: 'What would you like to do?',
         name: 'menu',
-        choices: ['View employees', 'Add an employee', 'Update the role of an employee', 'Return to main menu', 'Exit program']
+        choices: ['View employees', 'Add an employee', 'Update the role of an employee', 'Return to main menu', 'Exit program'],
       },
     ])
     .then((response) => {
@@ -52,6 +52,41 @@ function employeeMenu() {
     })
 }
 
+// Add Role
+const addRole = () => {
+  connection.query('SELECT * FROM department', (err, res) => {
+    if (err) throw err;
+    inquirer
+      .prompt([
+        {
+          type: 'input',
+          message: 'What is the title of the role?',
+          name: 'title',
+        },
+        {
+          type: 'input',
+          message: 'What is the salary of this role',
+          name: 'salary',
+        },
+        {
+          type: 'rawlist',
+          message: 'What department is this role in?',
+          name: 'department',
+          choices() {
+            const choiceArray = [];
+            res.forEach(({ name }) => {
+              choiceArray.push(name);
+            });
+            return choiceArray;
+          },
+        }
+      ])
+      .then((response) => {
+        console.log(response.department);
+      });
+  });
+};
+
 // View roles
 const viewRole = () => {
   connection.query('SELECT * FROM role', (err, res) => {
@@ -69,7 +104,7 @@ function roleMenu() {
         type: 'list',
         message: 'What would you like to do?',
         name: 'menu',
-        choices: ['View roles', 'Add a role', 'Return to main menu', 'Exit program']
+        choices: ['View roles', 'Add a role', 'Return to main menu', 'Exit program'],
       },
     ])
     .then((response) => {
@@ -77,7 +112,7 @@ function roleMenu() {
         viewRole();
       }
       else if (response.menu == 'Add a role') {
-        console.log('add a role');
+        addRole();
       }
       else if (response.menu == 'Return to main menu') {
         mainMenu();
@@ -104,8 +139,9 @@ const addDepartment = () => {
         {
           name: response.name,
         },
-        (err) => {
+        (err, res) => {
           if (err) throw err;
+          console.table(res);
           viewDepartment();
         }
       );
@@ -129,7 +165,7 @@ function departmentMenu() {
         type: 'list',
         message: 'What would you like to do?',
         name: 'menu',
-        choices: ['View departments', 'Add a department', 'Return to main menu', 'Exit program']
+        choices: ['View departments', 'Add a department', 'Return to main menu', 'Exit program'],
       },
     ])
     .then((response) => {
@@ -156,7 +192,7 @@ function mainMenu() {
         type: 'list',
         message: 'What would you like to manage?',
         name: 'menu',
-        choices: ['Departments', 'Roles', 'Employees', 'Exit program']
+        choices: ['Departments', 'Roles', 'Employees', 'Exit program'],
       },
     ])
     .then((response) => {

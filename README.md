@@ -69,3 +69,6 @@ Added some employees to the seed and then added the code to view them from the m
 
 ### Commit 15: Add Departments
 Because the ids autoincrement, I have removed them from the seed file. Now you can add departments! I will repeat and test the process with the other two tables!
+
+### Commit 16: What department is the role in?
+Working on the add role function, I was able to use class activites to guide on how to pull the departments as a list, but now I'll need to figure out how to get the id number from the department name. 
