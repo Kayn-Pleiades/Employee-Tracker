@@ -14,6 +14,67 @@ const connection = mysql.createConnection({
 });
 
 // Update an employee
+// Update menu
+const updateMenu = (id) => {
+  inquirer
+  .prompt([
+    {
+      type: 'list',
+      message: 'What would you like to edit?',
+      name: 'choice',
+      choices: ['Change first name', 'Change last name', 'Change role', 'Change manager'],
+    },
+  ])
+  .then((response) => {
+    if (response.choice == 'Change first name') {
+      inquirer
+      .prompt([
+        {
+          type: 'input',
+          message: "What is the new first name of the employee?",
+          name: 'firstName',
+        },
+      ])
+      .then((response) =>{
+        connection.query(
+          'UPDATE employee SET ? WHERE ?',
+          [
+            {
+              first_name: response.firstName,
+            },
+            {
+              id: id,
+            },
+          ],
+          (err) => {
+            if (err) throw err;
+            inquirer
+            .prompt([
+              {
+                type: 'list',
+                message: 'Would you like to make additional edits to this employee?',
+                name: 'moreEdits',
+                choices: ['Yes', 'No. Please return me to the main menu'],
+              }
+            ])
+            .then((response) => {
+              if (response.moreEdits == 'Yes') {
+                updateMenu(id);
+              }
+              else {
+                mainMenu();
+              }
+            });
+          }
+        )
+      });
+    }
+    else {
+      console.log('else');
+    }
+  });
+}
+
 // Selects employee to update
 const selectEmployee = () => {
   connection.query('SELECT * FROM employee', (err, res) => {
@@ -22,7 +83,7 @@ const selectEmployee = () => {
     .prompt([
       {
         type: 'rawlist',
-        message: 'Please enter the ID of the employee you wish to edit',
+        message: 'Please select the employee you wish to edit',
         name: 'select',
         choices() {
           const choiceArray = [];
@@ -35,17 +96,24 @@ const selectEmployee = () => {
       },
     ])
     .then((response) => {
+      const manager_nameArray = response.select.split(' ');
+      const firstName = manager_nameArray[0];
+      const lastName = manager_nameArray[1];
+
       connection.query(
-        'SELECT * FROM employee WHERE ?',
+        'SELECT * FROM employee WHERE ? AND ?',
         [
           {
-            id: response.select,
+            first_name: firstName,
+          },
+          {
+            last_name: lastName,
           },
         ],
         (err, res) => {
           if (err) throw err;
           const id = res[0].id;
-          console.log(id);
+          updateMenu(id);
         }
       )
     })
@@ -137,11 +205,18 @@ const employeeInfo = () => {
                     },
                   ])
                   .then((response) => {
+                    const manager_nameArray = response.managerName.split(' ');
+                    const firstName = manager_nameArray[0];
+                    const lastName = manager_nameArray[1];
+
                     connection.query(
-                      'SELECT * FROM employee WHERE ?',
+                      'SELECT * FROM employee WHERE ? AND ?',
                       [
                         {
-                          first_name: response.managerName,
+                          first_name: firstName,
+                        },
+                        {
+                          last_name: lastName,
                         },
                       ],
                       (err, res) => {

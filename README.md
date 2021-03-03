@@ -94,4 +94,7 @@ Viewing a catagory is no longer an option and the table is automatically shown w
 ### Commit 23: Name list
 Rather than just have it update an employee's role, I figured having it be able to update any field for an employee would not be that much more work. Also, as a trans person who hopes to change their legal name soon, I think it is important for systems to allow name changes so that an employee isn't forever deadnamed by their job's system. I've made the selection list by full name, and did the same to selecting a manager. Next I'll need to change what comes after so the id can be retrieved. 
 
+### Commit 25: Update First Name
+First name can now be updated.
+
 
