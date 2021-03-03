@@ -17,7 +17,8 @@
 ## Usage
 
 ## Credits
-https://www.w3schools.com/sql/sql_join_inner.asp
+https://www.w3schools.com/sql/sql_join_left.asp
+https://www.w3schools.com/sql/sql_join_self.asp
 
 ## Tests
 
@@ -106,3 +107,6 @@ I have joined the tables to that the role info shows on the table for employees,
 
 ### Commit 28: Double Join
 Figured it out! now to get the manager name to display!
+
+### Commit 29: Triple Join!!
+The manager name now displays. I'm going to look more into aliases so that I can make the table look even nicer.
