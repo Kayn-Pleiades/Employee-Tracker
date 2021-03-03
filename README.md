@@ -48,3 +48,6 @@ Role table is now set up! I checked it in my workbench to make sure everything l
 
 ### Commit 8: Employee
 Employee table is now also set up. I think next I'll make a seed file to help with the process moving forward. 
+
+### Commit 9: Seed
+I started a seed file to help me moving forward.
