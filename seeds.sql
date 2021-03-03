@@ -8,3 +8,9 @@ VALUES (1, "Morning Musume");
 INSERT INTO department (id, name)
 VALUES (2, "ANGERME");
 
+-- Creates sample rows in the role table --
+INSERT INTO role (id, title, salary, department_id)
+VALUES (1, "9th Generation", 100.00, 1);
+
+INSERT INTO role (id, title, salary, department_id)
+VALUES (2, "10th Generation", 100.00, 1);

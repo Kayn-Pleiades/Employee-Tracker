@@ -38,10 +38,19 @@ function employeeMenu() {
         mainMenu();
       }
       else if (response.menu == 'Exit program') {
-        console.log('exit');
+        connection.end();
       }
     })
 }
+
+// View roles
+const viewRole = () => {
+  connection.query('SELECT * FROM role', (err, res) => {
+    if (err) throw err;
+    console.table(res);
+    roleMenu();
+  });
+};
 
 // Role menu
 function roleMenu() {
@@ -56,7 +65,7 @@ function roleMenu() {
     ])
     .then((response) => {
       if (response.menu == 'View roles') {
-        console.log('view roles');
+        viewRole();
       }
       else if (response.menu == 'Add a role') {
         console.log('add a role');
@@ -65,10 +74,19 @@ function roleMenu() {
         mainMenu();
       }
       else if (response.menu == 'Exit program') {
-        console.log('exit');
+        connection.end();
       }
     })
 }
+
+// View departments
+const viewDepartment = () => {
+  connection.query('SELECT * FROM department', (err, res) => {
+    if (err) throw err;
+    console.table(res);
+    departmentMenu();
+  });
+};
 
 // Department menu
 function departmentMenu() {
@@ -83,7 +101,7 @@ function departmentMenu() {
     ])
     .then((response) => {
       if (response.menu == 'View departments') {
-        afterConnection();
+        viewDepartment();
       }
       else if (response.menu == 'Add a department') {
         console.log('add a department');
@@ -92,7 +110,7 @@ function departmentMenu() {
         mainMenu();
       }
       else if (response.menu == 'Exit program') {
-        console.log('exit');
+        connection.end();
       }
     })
 }
@@ -113,24 +131,16 @@ function mainMenu() {
         departmentMenu();
       }
       else if (response.menu == 'Roles') {
-        console.log('Roles Menu');
+        roleMenu();
       }
       else if (response.menu == 'Employees') {
-        console.log('Employees Menu');
+        employeeMenu();
       }
       else if (response.menu == 'Exit program') {
-        console.log('End');
+        connection.end();
       }
     });
 }
-
-const afterConnection = () => {
-    connection.query('SELECT * FROM department', (err, res) => {
-      if (err) throw err;
-      console.table(res);
-      departmentMenu();
-    });
-  };
 
 connection.connect((err) => {
     if (err) throw err;

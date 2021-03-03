@@ -60,3 +60,6 @@ Added the department menu and the ability to view current departments.
 
 ### Commit 12: Menus
 Put in the other two menus.
+
+### Commit 13: View Roles
+Added some roles to the seed and then added the code to view them from the menu. 
