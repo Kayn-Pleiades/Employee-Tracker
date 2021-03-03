@@ -1,27 +1,33 @@
 # Employee-Tracker
 
+[Please click here for video tutorial!](https://drive.google.com/file/d/1r55pVqhXH03TGTnpdv62eRzu9amkl1kh/view?usp=sharing)
+
 ## Table of Contents
 
 * [Description](#description)
 * [Installation](#installation)
 * [Usage](#usage)
 * [Credits](#credits)
-* [Tests](#tests)
 * [Questions](#questions)
 * [Process](#process)
 
 ## Description 
+This app allows users to manage a business's departments, roles, and employees!
 
 ## Installation 
 
+To install this application, you will need to install the [Inquirer package](https://www.npmjs.com/package/inquirer), the [mysql package](https://www.npmjs.com/package/mysql), and the [console.table package](https://www.npmjs.com/package/console.table).
+
+You will also need mySQL set up on your computer, as it is required for this app. 
+
 ## Usage
+To use this application, pleaese refer to [this video](https://drive.google.com/file/d/1r55pVqhXH03TGTnpdv62eRzu9amkl1kh/view?usp=sharing)
+The application is run by entering the command "node index.js" in your terminal. 
 
 ## Credits
 https://www.w3schools.com/sql/sql_join_left.asp
 https://www.w3schools.com/sql/sql_join_self.asp
 https://www.w3schools.com/sql/sql_alias.asp
-
-## Tests
 
 ## Questions
 For any questions you may have, you can reach me [via GitHub](https://github.com/Kayn-Pleiades) or [via email](mailto:kayn.pleiades@gmail.com)
@@ -123,3 +129,6 @@ Departments are now able to be deleted.
 
 ### Commit 33: Nevermind
 If I had more time I'd do delete functions, but it's better to deliever something that I can insure works and then improve it in the future.
+
+### Commit 34: README
+Readme is complete and video filmed and uploaded!

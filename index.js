@@ -584,7 +584,7 @@ function departmentMenu() {
         type: 'list',
         message: 'What would you like to do?',
         name: 'menu',
-        choices: ['Add a department', 'Remove a department', 'Return to main menu', 'Exit program'],
+        choices: ['Add a department', 'Return to main menu', 'Exit program'],
       },
     ])
     .then((response) => {
