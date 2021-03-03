@@ -19,6 +19,7 @@
 ## Credits
 https://www.w3schools.com/sql/sql_join_left.asp
 https://www.w3schools.com/sql/sql_join_self.asp
+https://www.w3schools.com/sql/sql_alias.asp
 
 ## Tests
 
@@ -110,3 +111,6 @@ Figured it out! now to get the manager name to display!
 
 ### Commit 29: Triple Join!!
 The manager name now displays. I'm going to look more into aliases so that I can make the table look even nicer.
+
+### Commit 30: Nicer tables
+The employee table looks nicer now. I will fix up the other two tables next.

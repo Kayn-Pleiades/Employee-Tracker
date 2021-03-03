@@ -420,7 +420,7 @@ const employeeInfo = () => {
 
 // View employees
 const viewEmployee = () => {
-  connection.query('SELECT A.id, A.first_name, A.last_name, department.name, role.title, role.salary, B.first_name AS manager_first_name, B.last_name AS manager_last_name FROM (((employee A LEFT JOIN role ON A.role_id = role.id) LEFT JOIN department ON role.department_id = department.id) LEFT JOIN employee B ON A.manager_id = B.id )', (err, res) => {
+  connection.query(`SELECT A.id AS ID, CONCAT(A.first_name, ' ', A.last_name) AS Name, department.name AS Department, role.title AS Role, role.salary AS Salary, CONCAT(B.first_name, ' ', B.last_name) AS Manager FROM (((employee A LEFT JOIN role ON A.role_id = role.id) LEFT JOIN department ON role.department_id = department.id) LEFT JOIN employee B ON A.manager_id = B.id )`, (err, res) => {
     if (err) throw err;
     console.table(res);
     employeeMenu();
