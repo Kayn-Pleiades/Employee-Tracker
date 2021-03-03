@@ -84,3 +84,6 @@ The prompts ask if there is a manager and then splits into two. If there is no m
 
 ### Commit 20: No manager
 I learned that I need to use null and not "" or "null" to set a value to null. Now employees without managers can be added.
+
+### Commit 21: Employee with manager
+Now employees that have managers can be added as well. There is a lot of added functionality I'd like to this if I have time. Like selecting a department and then only roles from that department show.

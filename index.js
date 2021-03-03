@@ -79,7 +79,39 @@ const employeeInfo = () => {
             const last = response.last;
             const role = res[0].id;
             if (response.manager == 'Yes') {
-              console.log(role);
+              connection.query('SELECT * FROM employee', (err, res) => {
+                if (err) throw err;
+                inquirer
+                  .prompt([
+                    {
+                      type: 'rawlist',
+                      message: 'Who is the manager of this employee?',
+                      name: 'managerName',
+                      choices() {
+                        const choiceArray = [];
+                        res.forEach(({ first_name }) => {
+                          choiceArray.push(first_name);
+                        });
+                        return choiceArray;
+                      },
+                    },
+                  ])
+                  .then((response) => {
+                    connection.query(
+                      'SELECT * FROM employee WHERE ?',
+                      [
+                        {
+                          first_name: response.managerName,
+                        },
+                      ],
+                      (err, res) => {
+                        if (err) throw err;
+                        const manager = res[0].id;
+                        addEmployee(first, last, role, manager);
+                      }
+                    )
+                  })
+              })
             }
             else if (response.manager == 'No') {
               const manager = null;
