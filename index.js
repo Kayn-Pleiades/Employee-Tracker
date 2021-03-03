@@ -82,7 +82,17 @@ const addRole = () => {
         }
       ])
       .then((response) => {
-        console.log(response.department);
+        connection.query(
+          'SELECT * FROM department WHERE ?',
+          [
+            {
+              name: response.department,
+            },
+          ],
+          (err, res) => {
+            if (err) throw err;
+            console.log(res[0].id);
+          })
       });
   });
 };

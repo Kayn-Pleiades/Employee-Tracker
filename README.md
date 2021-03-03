@@ -72,3 +72,6 @@ Because the ids autoincrement, I have removed them from the seed file. Now you c
 
 ### Commit 16: What department is the role in?
 Working on the add role function, I was able to use class activites to guide on how to pull the departments as a list, but now I'll need to figure out how to get the id number from the department name. 
+
+### Commit 17: Find department id number
+Using the top songs activity, I was able to figure out how to search the departments by name and then return the correct id number!
