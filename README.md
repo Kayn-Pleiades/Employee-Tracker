@@ -97,4 +97,5 @@ Rather than just have it update an employee's role, I figured having it be able 
 ### Commit 25: Update First Name
 First name can now be updated.
 
-
+### Commit 26: Employee Updates
+Now all aspects of employees can be updated.

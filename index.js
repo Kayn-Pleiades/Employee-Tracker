@@ -6,73 +6,254 @@ require('console.table');
 
 // Create connection to database
 const connection = mysql.createConnection({
-    host: 'localhost',
-    port: 3306,
-    user: 'root',
-    password: password.mysql,
-    database: 'employees_db'
+  host: 'localhost',
+  port: 3306,
+  user: 'root',
+  password: password.mysql,
+  database: 'employees_db'
 });
 
 // Update an employee
 // Update menu
 const updateMenu = (id) => {
   inquirer
-  .prompt([
-    {
-      type: 'list',
-      message: 'What would you like to edit?',
-      name: 'choice',
-      choices: ['Change first name', 'Change last name', 'Change role', 'Change manager'],
-    },
-  ])
-  .then((response) => {
-    if (response.choice == 'Change first name') {
-      inquirer
-      .prompt([
-        {
-          type: 'input',
-          message: "What is the new first name of the employee?",
-          name: 'firstName',
-        },
-      ])
-      .then((response) =>{
-        connection.query(
-          'UPDATE employee SET ? WHERE ?',
-          [
+    .prompt([
+      {
+        type: 'list',
+        message: 'What would you like to edit?',
+        name: 'choice',
+        choices: ['Change first name', 'Change last name', 'Change role', 'Change manager'],
+      },
+    ])
+    .then((response) => {
+      // Change first name
+      if (response.choice == 'Change first name') {
+        inquirer
+          .prompt([
             {
-              first_name: response.firstName,
+              type: 'input',
+              message: "What is the new first name of the employee?",
+              name: 'firstName',
             },
+          ])
+          .then((response) => {
+            connection.query(
+              'UPDATE employee SET ? WHERE ?',
+              [
+                {
+                  first_name: response.firstName,
+                },
+                {
+                  id: id,
+                },
+              ],
+              (err) => {
+                if (err) throw err;
+                inquirer
+                  .prompt([
+                    {
+                      type: 'list',
+                      message: 'Would you like to make additional edits to this employee?',
+                      name: 'moreEdits',
+                      choices: ['Yes', 'No. Please return me to the main menu'],
+                    }
+                  ])
+                  .then((response) => {
+                    if (response.moreEdits == 'Yes') {
+                      updateMenu(id);
+                    }
+                    else {
+                      mainMenu();
+                    }
+                  });
+              }
+            )
+          });
+      }
+      // Change last name
+      else if (response.choice == 'Change last name') {
+        inquirer
+          .prompt([
             {
-              id: id,
+              type: 'input',
+              message: "What is the new last name of the employee?",
+              name: 'lastName',
             },
-          ],
-          (err) => {
-            if (err) throw err;
-            inquirer
+          ])
+          .then((response) => {
+            connection.query(
+              'UPDATE employee SET ? WHERE ?',
+              [
+                {
+                  last_name: response.lastName,
+                },
+                {
+                  id: id,
+                },
+              ],
+              (err) => {
+                if (err) throw err;
+                inquirer
+                  .prompt([
+                    {
+                      type: 'list',
+                      message: 'Would you like to make additional edits to this employee?',
+                      name: 'moreEdits',
+                      choices: ['Yes', 'No. Please return me to the main menu'],
+                    }
+                  ])
+                  .then((response) => {
+                    if (response.moreEdits == 'Yes') {
+                      updateMenu(id);
+                    }
+                    else {
+                      mainMenu();
+                    }
+                  });
+              }
+            )
+          });
+      }
+      // Change role
+      else if (response.choice == 'Change role') {
+        connection.query('SELECT * FROM role', (err, res) => {
+          if (err) throw err;
+          inquirer
             .prompt([
               {
-                type: 'list',
-                message: 'Would you like to make additional edits to this employee?',
-                name: 'moreEdits',
-                choices: ['Yes', 'No. Please return me to the main menu'],
-              }
+                type: 'rawlist',
+                message: 'What is the new role of the employee?',
+                name: 'newRole',
+                choices() {
+                  const choiceArray = [];
+                  res.forEach(({ title }) => {
+                    choiceArray.push(title);
+                  });
+                  return choiceArray;
+                },
+              },
             ])
             .then((response) => {
-              if (response.moreEdits == 'Yes') {
-                updateMenu(id);
-              }
-              else {
-                mainMenu();
-              }
-            });
-          }
-        )
-      });
-    }
-    else {
-      console.log('else');
-    }
-  });
+              connection.query(
+                'SELECT * FROM role WHERE ?',
+                [
+                  {
+                    title: response.newRole,
+                  },
+                ],
+                (err, res) => {
+                  if (err) throw err;
+                  const role = res[0].id;
+                  connection.query(
+                    'UPDATE employee SET ? WHERE ?',
+                    [
+                      {
+                        role_id: role,
+                      },
+                      {
+                        id: id,
+                      },
+                    ],
+                    (err) => {
+                      if (err) throw err;
+                      inquirer
+                        .prompt([
+                          {
+                            type: 'list',
+                            message: 'Would you like to make additional edits to this employee?',
+                            name: 'moreEdits',
+                            choices: ['Yes', 'No. Please return me to the main menu'],
+                          }
+                        ])
+                        .then((response) => {
+                          if (response.moreEdits == 'Yes') {
+                            updateMenu(id);
+                          }
+                          else {
+                            mainMenu();
+                          }
+                        });
+                    }
+                  )
+                }
+              )
+            })
+        })
+      }
+      // Change manager
+      else if (response.choice == 'Change manager') {
+        connection.query('SELECT * FROM employee', (err, res) => {
+          if (err) throw err;
+          inquirer
+            .prompt([
+              {
+                type: 'rawlist',
+                message: 'Who is the new manager of the employee?',
+                name: 'newManager',
+                choices() {
+                  const choiceArray = ['None'];
+                  res.forEach(({ first_name, last_name }) => {
+                    const name = first_name + ' ' + last_name;
+                    choiceArray.append(name);
+                  });
+                  return choiceArray;
+                },
+              },
+            ])
+            .then((response) => {
+              const manager_nameArray = response.newManager.split(' ');
+              const firstName = manager_nameArray[0];
+              const lastName = manager_nameArray[1];
+              connection.query(
+                'SELECT * FROM employee WHERE ? AND ?',
+                    [
+                      {
+                        first_name: firstName,
+                      },
+                      {
+                        last_name: lastName,
+                      },
+                    ],
+                (err, res) => {
+                  if (err) throw err;
+                  const manager = res[0].id;
+                  connection.query(
+                    'UPDATE employee SET ? WHERE ?',
+                    [
+                      {
+                        manager_id: manager,
+                      },
+                      {
+                        id: id,
+                      },
+                    ],
+                    (err) => {
+                      if (err) throw err;
+                      inquirer
+                        .prompt([
+                          {
+                            type: 'list',
+                            message: 'Would you like to make additional edits to this employee?',
+                            name: 'moreEdits',
+                            choices: ['Yes', 'No. Please return me to the main menu'],
+                          }
+                        ])
+                        .then((response) => {
+                          if (response.moreEdits == 'Yes') {
+                            updateMenu(id);
+                          }
+                          else {
+                            mainMenu();
+                          }
+                        });
+                    }
+                  )
+                }
+              )
+            })
+        })
+      }
+    });
 }
 
 // Selects employee to update
@@ -80,43 +261,43 @@ const selectEmployee = () => {
   connection.query('SELECT * FROM employee', (err, res) => {
     if (err) throw err;
     inquirer
-    .prompt([
-      {
-        type: 'rawlist',
-        message: 'Please select the employee you wish to edit',
-        name: 'select',
-        choices() {
-          const choiceArray = [];
-          res.forEach(({ first_name, last_name }) => {
-            const name = first_name + ' ' + last_name;
-            choiceArray.push(name);
-          });
-          return choiceArray;
+      .prompt([
+        {
+          type: 'rawlist',
+          message: 'Please select the employee you wish to edit',
+          name: 'select',
+          choices() {
+            const choiceArray = [];
+            res.forEach(({ first_name, last_name }) => {
+              const name = first_name + ' ' + last_name;
+              choiceArray.push(name);
+            });
+            return choiceArray;
+          },
         },
-      },
-    ])
-    .then((response) => {
-      const manager_nameArray = response.select.split(' ');
-      const firstName = manager_nameArray[0];
-      const lastName = manager_nameArray[1];
+      ])
+      .then((response) => {
+        const manager_nameArray = response.select.split(' ');
+        const firstName = manager_nameArray[0];
+        const lastName = manager_nameArray[1];
 
-      connection.query(
-        'SELECT * FROM employee WHERE ? AND ?',
-        [
-          {
-            first_name: firstName,
-          },
-          {
-            last_name: lastName,
-          },
-        ],
-        (err, res) => {
-          if (err) throw err;
-          const id = res[0].id;
-          updateMenu(id);
-        }
-      )
-    })
+        connection.query(
+          'SELECT * FROM employee WHERE ? AND ?',
+          [
+            {
+              first_name: firstName,
+            },
+            {
+              last_name: lastName,
+            },
+          ],
+          (err, res) => {
+            if (err) throw err;
+            const id = res[0].id;
+            updateMenu(id);
+          }
+        )
+      })
   })
 }
 
@@ -447,7 +628,7 @@ function mainMenu() {
 }
 
 connection.connect((err) => {
-    if (err) throw err;
-    console.log(`connected as id ${connection.threadId}`);
-    mainMenu();
-  });
+  if (err) throw err;
+  console.log(`connected as id ${connection.threadId}`);
+  mainMenu();
+});
