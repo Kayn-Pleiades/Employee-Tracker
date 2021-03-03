@@ -54,3 +54,6 @@ I started a seed file to help me moving forward.
 
 ### Commit 10: Main Menu
 Added a Main Menu
+
+### Commit 11: View Departments
+Added the department menu and the ability to view current departments.
