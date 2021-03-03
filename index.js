@@ -13,6 +13,15 @@ const connection = mysql.createConnection({
     database: 'employees_db'
 });
 
+// View employees
+const viewEmployee = () => {
+  connection.query('SELECT * FROM employee', (err, res) => {
+    if (err) throw err;
+    console.table(res);
+    roleMenu();
+  });
+};
+
 // Employee menu
 function employeeMenu() {
   inquirer
@@ -26,7 +35,7 @@ function employeeMenu() {
     ])
     .then((response) => {
       if (response.menu == 'View employees') {
-        console.log('view employees');
+        viewEmployee();
       }
       else if (response.menu == 'Add an employee') {
         console.log('add an employee');

@@ -63,3 +63,6 @@ Put in the other two menus.
 
 ### Commit 13: View Roles
 Added some roles to the seed and then added the code to view them from the menu. 
+
+### Commit 14: View Employees
+Added some employees to the seed and then added the code to view them from the menu. 

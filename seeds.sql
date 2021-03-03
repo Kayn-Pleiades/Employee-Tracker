@@ -14,3 +14,10 @@ VALUES (1, "9th Generation", 100.00, 1);
 
 INSERT INTO role (id, title, salary, department_id)
 VALUES (2, "10th Generation", 100.00, 1);
+
+-- Creates sample rows in the employee table --
+INSERT INTO employee (id, first_name, last_name, role_id)
+VALUES (1, "Mizuki", "Fukumura", 1);
+
+INSERT INTO employee (id, first_name, last_name, role_id, manager_id)
+VALUES (2, "Erina", "Ikuta", 1, 1);
